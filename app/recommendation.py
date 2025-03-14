@@ -4,7 +4,7 @@ from app.appointment_models import appointments_collection
 import traceback
 
 
-def get_user_recommendations(user_id: str, booked_services: list = None):
+def get_user_recommendations(user_id: str):
     """
     Get service recommendations for a user based on similar users' booking history.
 
@@ -17,8 +17,8 @@ def get_user_recommendations(user_id: str, booked_services: list = None):
     """
     try:
         # Fetch user's booked services if not provided
-        if booked_services is None:
-            booked_services = [
+     
+        booked_services = [
                 str(doc["service_id"])
                 for doc in appointments_collection.find(
                     {"user_id": user_id, "status": {"$in": ["completed", "confirmed"]}}
@@ -27,7 +27,7 @@ def get_user_recommendations(user_id: str, booked_services: list = None):
 
         # Aggregation pipeline for user-service interactions
         pipeline = [
-            {"$match": {"status": {"$in": ["completed", "confirmed"]}}},  # ✅ Fix trạng thái
+            {"$match": {"status": {"$in": ["completed", "confirmed"]}}}, 
             {"$group": {"_id": {"user_id": "$user_id", "service_id": "$service_id"}, "count": {"$sum": 1}}}
         ]
         interactions = list(appointments_collection.aggregate(pipeline))

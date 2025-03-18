@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter
 from app.classify_post import classify_question
 from app.database import labels_collection, questions_collection
 from pydantic import BaseModel

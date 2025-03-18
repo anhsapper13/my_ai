@@ -5,16 +5,7 @@ import traceback
 
 
 def get_user_recommendations(user_id: str):
-    """
-    Get service recommendations for a user based on similar users' booking history.
 
-    Args:
-        user_id (str): The ID of the user to get recommendations for.
-        booked_services (list): List of service IDs the user has already booked (optional).
-
-    Returns:
-        list: List of recommended services as dictionaries.
-    """
     try:
         # Fetch user's booked services if not provided
      
